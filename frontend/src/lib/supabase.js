@@ -6,6 +6,7 @@ export const supabase = createClient(
 )
 
 export function getPhotoUrl(storagePath) {
-  const { data } = supabase.storage.from('photos').getPublicUrl(storagePath)
-  return data.publicUrl
+  const { data } = supabase.storage.from('Photos').getPublicUrl(storagePath)
+  console.log('getPhotoUrl:', storagePath, '→', data)
+  return data?.publicUrl ?? null
 }
