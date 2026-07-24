@@ -28,22 +28,29 @@ export function usePhotos(categorySlug = null) {
         setError(null)
       try {
         let query = supabase
-          .from('photos')
-          .select(`
+        .from("photos")
+        .select(`
             id,
             title,
             storage_path,
             is_featured,
             sort_order,
             category:categories(id, name, slug)
-          `)
-          .order('sort_order', { ascending: true })
+        `)
+        .order("sort_order", { ascending: true });
 
         if (categorySlug) {
-          query = query
-            .eq('categories.slug', categorySlug)
-            .not('category_id', 'is', null)
+            const { data: category, error } = await supabase
+                .from("categories")
+                .select("id")
+                .eq("slug", categorySlug)
+                .single();
+
+            if (error) throw error;
+
+            query = query.eq("category_id", category.id);
         }
+        
 
         const { data, error } = await query
         console.log('photos data:', data)
