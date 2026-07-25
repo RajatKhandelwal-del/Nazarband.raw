@@ -1,8 +1,10 @@
 import { useState } from "react"
+import { useEffect } from "react"
 import { usePhotos } from "../hooks/usePhotos"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Skeleton } from "@/components/ui/skeleton"
+import { Link } from 'react-router-dom';
 import "./landing.css"
 
 function HeroSkeleton() {
@@ -25,51 +27,54 @@ export default function Landing() {
   const [activeCategory, setActiveCategory] = useState(null)
   const { photos, featured, categories, loading } = usePhotos(activeCategory)
 
+  useEffect(() => {
+    if (window.location.hash) {
+      const id = window.location.hash.substring(1);
+
+      setTimeout(() => {
+        const element = document.getElementById(id);
+
+        if (element) {
+          element.scrollIntoView({
+            behavior: "smooth",
+          });
+        }
+      }, 100);
+    }
+  }, []);
+
+
   return (
     <div className="landing">
       {/* Navbar */}
       <nav className="navbar">
-        <h1 className="logo">NAZARBAND</h1>
+        <div style={{width:"10%"}}><img src="/watermark.png" alt="" /></div>
         <div className="nav-links">
           <a href="#gallery">Gallery</a>
           <a href="#">About</a>
-          <a href="#">Contact</a>
+          <Link to={"/Contact"}>Contact</Link>
         </div>
       </nav>
 
       {/* Hero — dynamic featured images grid */}
       <section className="hero">
-        {loading ? (
-          <HeroSkeleton />
-        ) : featured.length > 0 ?  (
-          <div className="hero-grid">
-            {featured.map((photo, i) => (
-              <div
-                key={photo.id}
-                className={`hero-cell hero-cell--${i}`}
-                style={{ backgroundImage: `url(${photo.url})` }}
-              />
-            ))}
-          </div>
-        ) : (
-          // Fallback to the original Unsplash bg if no featured photos yet
-          <div
+        <div
             className="hero-grid hero-grid--fallback"
             style={{
-              backgroundImage: `url("https://images.unsplash.com/photo-1500530855697-b586d89ba3ee")`,
+              backgroundImage: `url("bgImg2.jpeg")`,//https://images.unsplash.com/photo-1500530855697-b586d89ba3ee
+              
             }}
           />
-        )}
 
         <div className="overlay">
-          <h1>Capturing Stories Beyond Sight</h1>
+          <h1>Some moments deserve<br/>more than memory</h1>
           <p>Photography that freezes moments and emotions forever.</p>
           <Button
             variant="outline"
             className="hero-cta"
             onClick={() => document.getElementById('gallery').scrollIntoView({ behavior: 'smooth' })}
           >
-            Explore Gallery
+            Featured Work
           </Button>
         </div>
       </section>
