@@ -4,6 +4,8 @@
   height: 100%;
   overflow: hidden;
   background: #0a0a0a;
+  padding: 24px;              /* NEW: inset margin — tweak to taste (e.g. 32px, 40px) */
+  box-sizing: border-box;     /* NEW: keeps padding from adding to width/height */
 }
 
 .fc-track {
@@ -74,13 +76,15 @@
   border-color: rgba(255,255,255,0.5);
 }
 
-.fc-arrow--prev { left: 20px; }
-.fc-arrow--next { right: 20px; }
+/* NEW: offset by the root padding (24px) plus original 20px gap so arrows
+   sit just inside the image edge instead of inside the dark margin */
+.fc-arrow--prev { left: 44px; }
+.fc-arrow--next { right: 44px; }
 
 /* Dots */
 .fc-dots {
   position: absolute;
-  bottom: 22px;
+  bottom: 46px;                /* NEW: 24px padding + original 22px */
   left: 50%;
   transform: translateX(-50%);
   z-index: 5;
@@ -110,16 +114,23 @@
 
 /* Responsive tweaks */
 @media (max-width: 768px) {
+  .fc-root {
+    padding: 12px;             /* NEW: smaller inset on tablets */
+  }
   .fc-arrow {
     width: 36px;
     height: 36px;
     font-size: 1.3rem;
   }
-  .fc-arrow--prev { left: 10px; }
-  .fc-arrow--next { right: 10px; }
-  .fc-dots { bottom: 14px; }
+  .fc-arrow--prev { left: 22px; }
+  .fc-arrow--next { right: 22px; }
+  .fc-dots { bottom: 26px; }
 }
 
 @media (max-width: 480px) {
+  .fc-root {
+    padding: 8px;              /* NEW: even smaller on phones */
+  }
   .fc-arrow { display: none; } /* arrows crowd small screens; dots + swipe-free autoplay still work */
+  .fc-dots { bottom: 20px; }
 }
