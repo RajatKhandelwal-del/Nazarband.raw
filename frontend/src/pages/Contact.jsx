@@ -1,19 +1,19 @@
 import React from "react";
 import "./Contact.css";
+import {Link} from 'react-router-dom'
 
 export default function Contact() {
   return (
     <div className="contact-page">
-      <nav>
-        <div className="logo">नज़र बंद</div>
+      <nav style={{padding:"1rem 3rem 1rem 3rem"}}>
+        <Link to={"/"} style={{width:"10%"}}><img src="/watermark.png" alt="" /></Link>
         <ul className="nav-links">
-          <li><a href="/#gallery">Gallery</a></li>
-          <li><a href="#about">About</a></li>
-          <li><a href="#contact" className="active">Contact</a></li>
+          <Link to={"/Services"}>Services</Link>
+          <li><a href="#contact" className="active">Book session</a></li>
         </ul>
       </nav>
 
-      <main>
+      <main style={{paddingTop:"1.5rem"}}>
         <div className="portrait-wrap">
           <div className="portrait-ring"></div>
           {/*
