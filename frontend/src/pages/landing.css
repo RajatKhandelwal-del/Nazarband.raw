@@ -199,7 +199,7 @@ body {
 }
 
 .photo-card:hover img {
-  transform: scale(1.03);
+  transform: scale(1.05);
 }
 
 .photo-info {
@@ -212,11 +212,13 @@ body {
   font-size: 0.8rem;
   letter-spacing: 1px;
   opacity: 0;
-  transition: opacity 0.3s;
+  transform: translateY(8px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
 .photo-card:hover .photo-info {
   opacity: 1;
+  transform: translateY(0);
 }
 
 .photo-skeleton {
